@@ -12,6 +12,8 @@ const htmlWords = document.querySelectorAll(".card_contents h2");
 const cardPadding = document.querySelectorAll(".card_padding");
 const rusWords = document.querySelectorAll(".rus_words");
 const but = document.querySelectorAll(".but");
+const audio = document.getElementById("audio");
+const tagA = document.querySelectorAll("a");
 
 
 
@@ -26,18 +28,19 @@ const pictures = [["Action_a_1", "Action_b_1", "Action_с_1", "Adjective_1", "an
 ["Emotion_0", "Emotion_1", "Emotion_2", "Emotion_3", "Emotion_4", "Emotion_5", "Emotion_6", "Emotion_7"]];
 
 const words = [["Action (set A)", "", "Action (set B)", "", "Action (set C)", "", "Adjective", "", "Animal (set A)", "", "Animal (set B)", "", "Clothes", "", "Emotion", ""],
-    ["cry", "плакать", "dance", "танцевать", "dive", "нырять", "draw", "рисовать", "fish", "ловить рыбу", "fly", "летать", "hug", "обнимать", "jump", "прыгать"],
-    ["open", "открывать", "play", "играть", "point", "указывать", "ride", "ездить", "run", "бегать", "sing", "петь", "skip", "пропускать, прыгать", "swim", "плавать"],
-    ["arge", "спорить", "build", "строить", "raise", "поднимать", "catch", "ловить", "drive", "водить", "drop", "падать", "pull", "тянуть", "push", "толкать"],
-    ["small", "маленький", "big", "большой", "fast", "быстрый", "slow", "медленный", "friendly", "дружелюбный", "unfriendly", "недружелюбный", "young", "молодой", "old", "старый"],
-    ["pig", "свинья", "chick", "цыпленок", "chicken", "курица", "dog", "собака", "horse", "лошадь", "cat", "кот", "rabbit", "кролик", "sheep", "овца"],
-    ["fish", "рыба", "bird", "птица", "frog", "жаба", "giraffe", "жираф", "lion", "лев", "mouse", "мышь", "turtle", "черепаха", "dolphin", "дельфин"],
-    ["skirt", "юбка", "sneakers", "кеды", "pants", "брюки", "blouse", "блуза", "dress", "платье", "shirt", "рубашка", "coat", "пальто", "shoe", "туфли"],
-    ["sad", "грустный", "smile", "улыбчевый", "surprised", "удивленный", "scared", "испуганный", "tired", "уставший", "laugh", "смех", "happy", "счастливый", "resentful", "обиженный"]];
+["cry", "плакать", "dance", "танцевать", "dive", "нырять", "draw", "рисовать", "fish", "ловить рыбу", "fly", "летать", "hug", "обнимать", "jump", "прыгать"],
+["open", "открывать", "play", "играть", "point", "указывать", "ride", "ездить", "run", "бегать", "sing", "петь", "skip", "пропускать, прыгать", "swim", "плавать"],
+["arge", "спорить", "build", "строить", "raise", "поднимать", "catch", "ловить", "drive", "водить", "drop", "падать", "pull", "тянуть", "push", "толкать"],
+["small", "маленький", "big", "большой", "fast", "быстрый", "slow", "медленный", "friendly", "дружелюбный", "unfriendly", "недружелюбный", "young", "молодой", "old", "старый"],
+["pig", "свинья", "chick", "цыпленок", "chicken", "курица", "dog", "собака", "horse", "лошадь", "cat", "кот", "rabbit", "кролик", "sheep", "овца"],
+["fish", "рыба", "bird", "птица", "frog", "жаба", "giraffe", "жираф", "lion", "лев", "mouse", "мышь", "turtle", "черепаха", "dolphin", "дельфин"],
+["skirt", "юбка", "boot", "ботинок", "pants", "брюки", "blouse", "блуза", "dress", "платье", "shirt", "рубашка", "coat", "пальто", "shoe", "туфли"],
+["sad", "грустный", "smile", "улыбчевый", "surprised", "удивленный", "scared", "испуганный", "tired", "уставший", "laugh", "смех", "happy", "счастливый", "angry", "сердитый"]];
+
 
 
 let articleFlag = 0;
-const articleId = ["Main_page", "Action_a", "Action_b", "Action_с", "Adjective", "animal_a", "animal_b", "Clothes", "Emotion"];
+const articleId = ["Main page", "Action (set A)", "Action (set B)", "Action (set C)", "Adjective", "Animal (set A)", "Animal (set B)", "Clothes", "Emotion"];
 
 
 menuIconSize.addEventListener("click", () => { toggleBurgerClass() });
@@ -45,23 +48,28 @@ menuIconSize.addEventListener("click", () => { toggleBurgerClass() });
 
 cardContentBlock.forEach((el, ind) => {
     el.addEventListener("click", () => {
-        articleFlag === 0 && toggleCards(event, el, ind, 1)
+        if (!articleFlag) {
+            toggleCards(event, el, ind, 1)
+        } else {
+            playAudio(el, ind);
+        }
     })
 });
 
 
 nav.addEventListener("click", () => {
-    toggleBurgerClass()
+    toggleBurgerClass();
     menuLi.forEach((el, ind) => { toggleCards(event, el, ind, 0) })
 });
 
 
 function toggleCards(event, el, ind, n) {
+
     event.target.innerText === el.innerText && (articleFlag = (ind + n));
     changeArticleId();
     changeHtml(event.target.innerText);
+    addClassActiveToTagA();
 }
-
 
 function changeArticleId() {
     article.id = `${articleId[articleFlag]}`
@@ -76,10 +84,18 @@ function changeHtml(params) {
         el.style.backgroundImage = `url(./src/assets/${pictures[articleFlag][ind]}.jpg)`
     });
 
-        htmlWords.forEach((el, ind) => {
-            el.innerText = `${words[articleFlag][ind * 2]}`
-            rusWords[ind].innerText = `${words[articleFlag][ind*2+1]}`
-        })
+    htmlWords.forEach((el, ind) => {
+        el.innerText = `${words[articleFlag][ind * 2]}`
+        rusWords[ind].innerText = `${words[articleFlag][ind * 2 + 1]}`
+    })
+}
+
+
+function addClassActiveToTagA() {
+    tagA.forEach(el => {
+        el.classList.remove("active");
+        el.innerText === article.id && el.classList.add("active");
+    })
 }
 
 
@@ -87,7 +103,7 @@ function cardContentsAddClassActive() {
     if (!!articleFlag) {
         cardContents.forEach(el => { el.classList.add("active") });
         but.forEach(el => { el.classList.add("active") });
-    } else {     
+    } else {
         cardContents.forEach(el => { el.classList.remove("active") });
         but.forEach(el => { el.classList.remove("active") });
     }
@@ -104,7 +120,10 @@ function toggleBurgerClass() {
 
 but.forEach((el, ind) => {
 
-    el.addEventListener("click", () => { toggleClassRotate(ind) });
+    el.addEventListener("click", () => {
+
+        toggleClassRotate(ind)
+    });
 });
 
 function toggleClassRotate(ind) {
@@ -113,5 +132,14 @@ function toggleClassRotate(ind) {
     card[ind].onmouseleave = () => {
         cardPadding[ind].classList.remove("rotate");
     };
+}
+
+//==========клик на произведение аудио===================
+
+function playAudio(el, ind) {
+    if (event.target === el) {
+        audio.src = `./src/audio/${words[articleFlag][ind * 2]}.mp3`
+        audio.play();
+    }
 }
 
