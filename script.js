@@ -15,6 +15,13 @@ const rusWords = document.querySelectorAll(".rus_words");
 const but = document.querySelectorAll(".but");
 const audio = document.getElementById("audio");
 const tagA = document.querySelectorAll("a");
+const checkbox = document.querySelector(".toggle-button-cover");
+const buttonPlay = document.querySelector(".button_P");
+
+let articleFlag = 0;
+let checkPlay;
+
+
 
 
 const pictures = [["Action_a_1", "Action_b_1", "Action_с_1", "Adjective_1", "animalA_0", "animalB_0", "Clothes_1", "Emotion_1"],
@@ -39,7 +46,6 @@ const words = [["Action (set A)", "", "Action (set B)", "", "Action (set C)", ""
 
 
 
-let articleFlag = 0;
 const articleId = ["Main page", "Action (set A)", "Action (set B)", "Action (set C)", "Adjective", "Animal (set A)", "Animal (set B)", "Clothes", "Emotion"];
 
 //==========клик по карточке===================
@@ -111,7 +117,7 @@ function cardContentsAddClassActive() {
     } else {
         cardContents.forEach(el => { el.classList.remove("active") });
         but.forEach(el => { el.classList.remove("active") });
-    }
+    } 
 }
 
 //==========клик по бургеру===================
@@ -156,5 +162,19 @@ function playAudio(el, ind) {
     }
 }
 
+//==========клик по чекбоксу===================
 
 
+checkbox.addEventListener("click", addClassPlay)
+
+function addClassPlay() {
+    !checkPlay ? (checkPlay = 1) : (checkPlay = 0);
+
+    menuIcon.classList.toggle("play");
+    nav.classList.toggle("play");
+    buttonPlay.classList.toggle("play");
+    tagA.forEach(el => el.classList.toggle("play"));
+    cardPadding.forEach(el => el.classList.toggle("play"));
+    cardContents.forEach(el => el.classList.toggle("play"));
+
+}
