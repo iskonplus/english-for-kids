@@ -11,7 +11,6 @@
 	margin: auto;
 }
 
-
 header {
 	display: flex;
 	justify-content: space-between;
@@ -31,6 +30,10 @@ nav {
 	box-shadow: 0px 1px 15px #807f7f;
 	transition: all .3s ease-in;
 	z-index: 1;
+}
+
+nav.play {
+	background: #d9f0d2;
 }
 
 nav.nav_activ {
@@ -56,11 +59,22 @@ nav.nav_activ {
 }
 
 .menu_ul a:hover {
-	color: #f44336;
+	color: #2f9610;
 }
 
 .menu_ul a.active {
-	color: #f44336;
+	color: #2f9610;
+}
+.menu_ul a.play {
+	color: #2f9610;
+}
+
+.menu_ul a.play:hover {
+	color: #03a9f4;
+}
+
+.menu_ul a.play.active {
+	color: #03a9f4;
 }
 
 /* ----------menu icon----------- */
@@ -70,8 +84,8 @@ nav.nav_activ {
 	height: 22px;
 	display: flex;
 	align-items: center;
-    cursor: pointer;
-    z-index: 2;
+	cursor: pointer;
+	z-index: 2;
 }
 
 .menu_icon {
@@ -82,6 +96,10 @@ nav.nav_activ {
 	position: relative;
 	transition: .2s;
 	z-index: 1;
+}
+
+.menu_icon.play {
+	background-color: #2f9610;
 }
 
 .menu_icon.menu_icon_activ {
@@ -100,6 +118,10 @@ nav.nav_activ {
 	transition: .2s;
 }
 
+.menu_icon.play::before {
+	background-color: #2f9610;
+}
+
 .menu_icon.menu_icon_activ::before {
 	top: 0px;
 	transform: rotate(45deg);
@@ -115,6 +137,10 @@ nav.nav_activ {
 	border-radius: 2px;
 	position: absolute;
 	transition: .2s;
+}
+
+.menu_icon.play::after {
+	background-color: #2f9610;
 }
 
 .menu_icon.menu_icon_activ::after {
@@ -204,11 +230,11 @@ nav.nav_activ {
 
 #button-17 .checkbox:checked + .knobs span {
 	left: 71px;
-	background-color: #f44336;
+	background-color: #2f9610;
 }
 
 #button-17 .checkbox:checked ~ .layer {
-	background-color: #fcebeb;
+	background-color: #60be443d;
 }
 
 article {
@@ -247,19 +273,22 @@ article > h2 {
 	border-radius: 4px;
 	position: relative;
 	transform-style: preserve-3d;
-    transition: .4s;
+	transition: .4s;
 	cursor: pointer;
-    
 }
 
-.card_padding:hover{
-box-shadow: 0px 0px 8px #506e7c;
-    
+.card_padding.play {
+	background: #2f9610;
+}
+
+.card_padding:hover {
+	box-shadow: 0px 0px 8px #506e7c;
 }
 
 .card_content_block {
 	width: 100%;
-	padding-top: calc(100%/(300/288));
+	height: 220px;
+	/* padding-top: calc(100%/(300/288)); */
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -274,12 +303,17 @@ box-shadow: 0px 0px 8px #506e7c;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-    transition: .3s;
-    background: #d8f1fca9;
+	transition: .3s;
+	background: #d8f1fca9;
 	border: 5px #03a9f4 solid;
-    border-top: none;
+	border-top: none;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
+}
+.card_contents.play {
+	background: #c1e2b77a;
+	border: 5px #2f9610 solid;
+	border-top: none;
 }
 
 .card_contents h2 {
@@ -288,14 +322,14 @@ box-shadow: 0px 0px 8px #506e7c;
 
 .but {
 	color: #03a9f4;
-    font-size: 28px;
-    font-weight: bold;
+	font-size: 28px;
+	font-weight: bold;
 	display: none;
 	transition: .4s;
 }
 
 .but:hover {
-    color: #f44336;
+	color: #f44336;
 }
 
 .but.active {
@@ -304,10 +338,10 @@ box-shadow: 0px 0px 8px #506e7c;
 
 .rus_lang {
 	width: 100%;
-	background: #EBF8FD;
+	background: #ebf8fd;
 	position: absolute;
 	left: 0;
-    bottom: 0;
+	bottom: 0;
 	border: 5px #03a9f4 solid;
 	border-top: none;
 	border-bottom-left-radius: 8px;
@@ -321,40 +355,67 @@ box-shadow: 0px 0px 8px #506e7c;
 	padding: 5px 0px;
 }
 
+.button_P {
+	display: flex;
+	justify-content: center;
+	margin-top: 0px;
+	opacity: 0;
+	transition: .3s;
+}
 
+.button_P.play {
+	margin-top: 20px;
+	opacity: 1;
+}
 
-	/* ------- 768px----------- */
+#button_Play {
+	background: #d9f0d2;
+	border: 2px #2f9610 solid;
+	padding: 5px 10px;
+	cursor: pointer;
+	color: #2f9610;
+	font-weight: 700;
+	border-radius: 2px;
+	transition: .3s;
+	outline: none;
+}
 
-	@media (max-width: 768px) {
+#button_Play:hover {
+	background: #2f9610;
+	color: #ffffff;
+}
 
+/* border: 5px #2f9610 solid; */
+
+/* ------- 788px----------- */
+
+@media (max-width: 788px) {
+	.container {
+		max-width: 788px;
+		padding: 10px 10px 0px;
+	}
+
+	nav {
+		padding-top: 15vh;
+	}
+
+	article > h2 {
+		margin: 50px auto 20px;
+	}
+
+	.card {
+		width: 50%;
+	}
+
+	/* ------- 395px----------- */
+
+	@media (max-width: 395px) {
 		.container {
-			max-width: 768px;
-			padding: 10px 10px 0px;
-
-		}
-
-		nav {
-			padding-top: 15vh;
-		}
-
-		article > h2 {
-			margin:50px auto 20px;
+			max-width: 395px;
 		}
 
 		.card {
-				width: 50%;
-		}
-	
-		/* ------- 375px----------- */
-
-		@media (max-width: 375px) {
-			
-		.container {
-			max-width: 375px;
-		}
-		
-		.card {
-				width: 100%;
-		}
+			width: 100%;
 		}
 	}
+}
