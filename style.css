@@ -58,6 +58,10 @@ nav.nav_activ {
 	color: #f44336;
 }
 
+.menu_ul a.active {
+	color: #f44336;
+}
+
 /* ----------menu icon----------- */
 
 .menu_icon_size {
