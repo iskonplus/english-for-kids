@@ -1,3 +1,4 @@
+const windows = document;
 const menuIconSize = document.querySelector(".menu_icon_size");
 const article = document.querySelector("article");
 const articleH2 = document.querySelector("article h2");
@@ -14,7 +15,6 @@ const rusWords = document.querySelectorAll(".rus_words");
 const but = document.querySelectorAll(".but");
 const audio = document.getElementById("audio");
 const tagA = document.querySelectorAll("a");
-
 
 
 const pictures = [["Action_a_1", "Action_b_1", "Action_с_1", "Adjective_1", "animalA_0", "animalB_0", "Clothes_1", "Emotion_1"],
@@ -42,9 +42,7 @@ const words = [["Action (set A)", "", "Action (set B)", "", "Action (set C)", ""
 let articleFlag = 0;
 const articleId = ["Main page", "Action (set A)", "Action (set B)", "Action (set C)", "Adjective", "Animal (set A)", "Animal (set B)", "Clothes", "Emotion"];
 
-
-menuIconSize.addEventListener("click", () => { toggleBurgerClass() });
-
+//==========клик по карточке===================
 
 cardContentBlock.forEach((el, ind) => {
     el.addEventListener("click", () => {
@@ -57,19 +55,26 @@ cardContentBlock.forEach((el, ind) => {
 });
 
 
+
 nav.addEventListener("click", () => {
-    toggleBurgerClass();
     menuLi.forEach((el, ind) => { toggleCards(event, el, ind, 0) })
 });
 
 
 function toggleCards(event, el, ind, n) {
+    let test;
 
-    event.target.innerText === el.innerText && (articleFlag = (ind + n));
-    changeArticleId();
-    changeHtml(event.target.innerText);
-    addClassActiveToTagA();
+    articleId.forEach(el => { event.target.innerText === el && (test = 1) });
+    
+    if (test) {
+        event.target.innerText === el.innerText && (articleFlag = (ind + n));
+        changeArticleId();
+        changeHtml(event.target.innerText);
+        addClassActiveToTagA();
+    }
+
 }
+
 
 function changeArticleId() {
     article.id = `${articleId[articleFlag]}`
@@ -109,10 +114,18 @@ function cardContentsAddClassActive() {
     }
 }
 
+//==========клик по бургеру===================
+
+windows.addEventListener("click", toggleBurgerClass);
 
 function toggleBurgerClass() {
-    nav.classList.toggle("nav_activ");
-    menuIcon.classList.toggle("menu_icon_activ");
+    if (event.target === menuIconSize || event.target === menuIcon) {
+        nav.classList.toggle("nav_activ");
+        menuIcon.classList.toggle("menu_icon_activ");
+    } else {       
+        nav.classList.remove("nav_activ");
+        menuIcon.classList.remove("menu_icon_activ");   
+    }
 }
 
 
@@ -142,4 +155,6 @@ function playAudio(el, ind) {
         audio.play();
     }
 }
+
+
 
