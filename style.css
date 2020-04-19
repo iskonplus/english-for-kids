@@ -7,9 +7,10 @@
 .container {
 	max-width: 1020px;
 	width: 100%;
-	padding-top: 90px;
+	padding: 90px 10px 0px;
 	margin: auto;
 }
+
 
 header {
 	display: flex;
@@ -319,3 +320,41 @@ box-shadow: 0px 0px 8px #506e7c;
 	text-align: center;
 	padding: 5px 0px;
 }
+
+
+
+	/* ------- 768px----------- */
+
+	@media (max-width: 768px) {
+
+		.container {
+			max-width: 768px;
+			padding: 10px 10px 0px;
+
+		}
+
+		nav {
+			padding-top: 15vh;
+		}
+
+		article > h2 {
+			margin:50px auto 20px;
+		}
+
+		.card {
+				width: 50%;
+		}
+	
+		/* ------- 375px----------- */
+
+		@media (max-width: 375px) {
+			
+		.container {
+			max-width: 375px;
+		}
+		
+		.card {
+				width: 100%;
+		}
+		}
+	}
