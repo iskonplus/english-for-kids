@@ -21,6 +21,7 @@ header {
 /* ----------nav-------------- */
 
 nav {
+	width: 255px;
 	height: 100vh;
 	padding-top: 25vh;
 	position: absolute;
@@ -60,6 +61,7 @@ nav.nav_activ {
 
 .menu_ul a:hover {
 	color: #2f9610;
+	margin-left: 10px;
 }
 
 .menu_ul a.active {
